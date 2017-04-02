@@ -18,7 +18,7 @@ public class Vetor {
     }
     
     public Vetor(int array[]) { //Opção de já instanciar o vetor passando uma sequencia
-        if (array.length >= this.array.length) {
+        if (array.length <= this.array.length) {
             this.array = array;
         }
     }
@@ -36,10 +36,8 @@ public class Vetor {
     }    
     
     public void addFim(int item) { //Complexidade constante
-        if (this.tam >= this.array.length) {
             this.array[tam] = item;
             this.tam++;
-        }
     }
     
     public void add(int item, int pos) { //Complexidade constante
