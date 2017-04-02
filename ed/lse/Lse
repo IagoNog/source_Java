@@ -35,7 +35,7 @@ public class Lse {
             while (node_aux.getProx() != null) {
                 node_aux = node_aux.getProx();
             }
-            node_aux.setProx(node);
+            node_aux.setProx(node); 
             this.size++;
         }        
     }
