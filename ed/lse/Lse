@@ -1,0 +1,98 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package projeto2;
+
+/**
+ *
+ * @author Iago Nogueira <iagonogueira227@gmail.com>
+ */
+public class Lse {
+    private No inicio;
+    private int size;
+    
+    public Lse(){
+        super();
+    }
+    
+    public void addInicio(int item) {
+        
+        No node = new No(item);
+        node.setProx(inicio);
+        this.inicio = node;
+        
+        this.size++;
+    }  
+    
+    public void addFim(int item) {
+        if (this.size == 0) {
+            this.addInicio(item);
+        } else {
+            No node = new No(item);
+            No node_aux = this.inicio;
+            while (node_aux.getProx() != null) {
+                node_aux = node_aux.getProx();
+            }
+            node_aux.setProx(node);
+            this.size++;
+        }        
+    }
+    
+    public void add(int item, int pos) {
+        
+        if (pos == 0) {
+            this.addInicio(item);
+            
+        } else if (pos == this.size) {
+            this.addFim(item);
+            
+        } else if (pos > 0 && pos < this.size) {
+            System.out.println("Posição inválida");
+            
+        } else {
+            No node = new No(item);
+            No node_aux = this.inicio;
+            int cont = 0;
+            
+            while (cont < (pos-1)) {
+                cont++;
+                node_aux = node_aux.getProx();
+            }
+            
+            node.setProx(node_aux.getProx());
+            this.size++;
+        }
+    }
+    
+    public int delInicio() {
+        
+        No node_aux = this.inicio;
+        this.inicio = node_aux.getProx();
+        
+        return node_aux.getItem();
+    }
+    
+    public int delFim() { //Method incomplet
+        
+        No node_aux = this.inicio;
+        int cont = 0;
+        
+    }
+    
+    public int del(int pos) { //Method incomplet
+        
+    }
+    
+    public int size() {
+        return this.size;
+    }
+    
+    public void print() {
+        for(int i = 0; i < this.size; i++){
+            No n = this.inicio;
+            System.out.println(n.getProx());
+        }
+    } 
+}
