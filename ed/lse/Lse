@@ -17,7 +17,7 @@ public class Lse {
         super();
     }
     
-    public void addInicio(int item) {
+    public void addInicio(int item) { //constante
         
         No node = new No(item);
         node.setProx(inicio);
@@ -26,7 +26,7 @@ public class Lse {
         this.size++;
     }  
     
-    public void addFim(int item) {
+    public void addFim(int item) { //linear
         if (this.size == 0) {
             this.addInicio(item);
         } else {
@@ -40,7 +40,7 @@ public class Lse {
         }        
     }
     
-    public void add(int item, int pos) {
+    public void add(int item, int pos) { //linear
         
         if (pos == 0) {
             this.addInicio(item);
@@ -66,7 +66,7 @@ public class Lse {
         }
     }
     
-    public int delInicio() {
+    public int delInicio() { //constante
         
         No node_aux = this.inicio;
         this.inicio = node_aux.getProx();
@@ -74,25 +74,54 @@ public class Lse {
         return node_aux.getItem();
     }
     
-    public int delFim() { //Method incomplet
+    public int delFim() { //linear
         
         No node_aux = this.inicio;
-        int cont = 0;
+        No x;
+  
+        while (node_aux.getProx() != null) {
+            node_aux = node_aux.getProx();
+        }
+        x = node_aux;
+        node_aux.setProx(null);
+        this.size--;
         
+        return x.getItem();
     }
     
-    public int del(int pos) { //Method incomplet
-        
+    public void del(int pos) { //linear
+        if (pos == 0) {
+            this.delInicio();
+            
+        } else if (pos == this.size) {
+            this.delFim();
+            
+        } else if (pos < 0 && pos > this.size) {
+            System.out.println("Posição inválida");
+            
+        } else {
+            No node_aux = this.inicio;
+            No x;
+            int cont = 0;
+            
+            while (cont <= pos--) {
+                cont++;
+                node_aux = node_aux.getProx();
+            }
+            x = node_aux;
+            node_aux.setProx(node_aux.getProx().getProx());
+        }
     }
     
-    public int size() {
+    public int size() { //constante
         return this.size;
     }
     
-    public void print() {
+    public void print() { //linear
         for(int i = 0; i < this.size; i++){
             No n = this.inicio;
             System.out.println(n.getProx());
         }
-    } 
+    }
 }
+
