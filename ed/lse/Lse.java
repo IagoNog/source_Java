@@ -118,16 +118,14 @@ public class Lse {
         return this.size;
     }
     
-    public void imprimeInvertido(Collection<? extends Object> colecao) {
-        imprimeInvertido(colecao.iterator());
-    }
- 
-    private void imprimeInvertido(Iterator<? extends Object> iterator) {
-        if (iterator.hasNext()) {
-            Object object = iterator.next();
-            imprimeInvertido(iterator);
-            System.out.println(object);
-        }
-    }
+   public void print() {
+		this.imprime(this.inicio);
+	}
+	
+	 private void imprime(No n) {
+		 if (n.getProx() != null)
+			 imprime(n.getProx());
+		 System.out.println(n.getConteudo());
+	 }
     
 }
