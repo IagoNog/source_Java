@@ -117,15 +117,14 @@ public class Lse {
     public int size() { //constante
         return this.size;
     }
-    
-   public void print() {
-		this.imprime(this.inicio);
-	}
+
+    public void print() {
+	this.imprime(this.inicio);
+    }
 	
-	 private void imprime(No n) {
-		 if (n.getProx() != null)
-			 imprime(n.getProx());
-		 System.out.println(n.getConteudo());
-	 }
-    
+    private void imprime(No n) {
+	if (n.getProx() != null)
+		imprime(n.getProx());
+		System.out.println(n.getConteudo());
+	}
 }
