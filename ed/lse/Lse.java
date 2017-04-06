@@ -28,11 +28,7 @@ public class Lse {
             this.inicio = node;
             this.fim = this.inicio;
             this.size++;
-        } else {
-            
-        }
-        
-        
+        }      
     }  
     
     public void addFim(int item) { //constante
