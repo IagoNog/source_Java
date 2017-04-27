@@ -158,5 +158,4 @@ public class Lde implements ILde{ //Somentes os métodos foram herdados
     public void setFim(No fim) {
         this.fim = fim;
     }
-
-   }
+}
