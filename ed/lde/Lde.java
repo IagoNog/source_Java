@@ -1,9 +1,12 @@
+package lde;
 
 /**
  * 
  * @author Iago Nogueira <iagonogueira227@gmail.com>
+ * @param <E>
  */
-public class Lde implements ILde{ //Somentes os métodos foram herdados
+
+public class Lde<E> implements ILde<E> {
     
     private No inicio;
     private No fim;
@@ -15,9 +18,9 @@ public class Lde implements ILde{ //Somentes os métodos foram herdados
         this.fim = null;
         this.tam = 0;
     }    
-
+    
     @Override
-    public void add( Object item, int pos ) {
+    public void add( E item, int pos ) {
         
         if (  this.tam == 0 ) {
             this.addInicio( item );
@@ -43,14 +46,21 @@ public class Lde implements ILde{ //Somentes os métodos foram herdados
             this.tam++;
         }
     }
+    
+    @Override
+    public void add( E array[] ) {
+        
+        for ( E o : array ) {
+            this.addFim( o );
+        }
+    }
 
     @Override
-    public void addInicio( Object item ) {
+    public void addInicio( E item ) {
         
-        No node = new No( item );
+         No node = new No( item );
         
-        
-        if ( this.inicio.getProx() == null ) {
+        if ( this.tam == 0 ) {
             this.inicio = node;
             this.fim = node;
             
@@ -65,20 +75,62 @@ public class Lde implements ILde{ //Somentes os métodos foram herdados
     }
 
     @Override
-    public void addFim( Object item ) {
+    public void addFim( E item ) {
         
-        No aux = this.fim;
-        No node = new No( item );
+        if ( this.tam == 0 ) {
+            this.addInicio( item );
+            
+        } else {
+            No aux = this.fim;
+            No node = new No( item );
+
+            aux.setProx( node );
+            node.setAnt( aux );
+            this.fim = node;
+
+            this.tam++;
+        }
+    }
+    
+    public void ordenaLista( No aux ) {
         
-        aux.setProx( node );
-        node.setAnt( aux );
-        this.fim = node;
+        boolean x = false;
+                
+        while ( aux.getProx() != null ) {
+            
+            if ( (int) aux.getElemento() < (int) aux.getProx().getElemento() ) {
+                No node = aux;
+                aux.setElemento( aux.getProx().getElemento() );
+                aux.getProx().setElemento( node.getElemento() );
+            } 
+            aux = aux.getProx();
+        }
         
-        this.tam++;
+        while ( aux.getProx() != null ) {
+            if ( (int)aux.getElemento() > (int)aux.getProx().getElemento() ) {
+                x = confere( 1 );
+            }
+        }
+        
+        if ( !x ) {
+            this.ordenaLista( this.inicio );
+        }
+        
+    }
+    
+    private boolean confere( int n ) {
+        
+        int cont = 0;
+        cont += n;
+        
+        if ( cont == this.tam ) {
+            return true;
+        }
+        return false;
     }
 
     @Override
-    public Object remove( int pos ) {
+    public E remove( int pos ) {
         
         No aux = this.inicio;
         
@@ -91,47 +143,46 @@ public class Lde implements ILde{ //Somentes os métodos foram herdados
         aux.getProx().setAnt( aux.getAnt().getAnt() );
         this.tam--;
         
-        return node_return;
+        return (E) node_return;
     }
 
     @Override
-    public Object removeInicio() {
+    public E removeInicio() {
         
         No node_return = this.inicio; //Armazena o no a ser removido
         this.inicio = this.inicio.getProx();
         this.tam--;
         
-        return node_return;
+        return (E) node_return;
     }
 
     @Override
-    public Object removeFim() {
+    public E removeFim() {
         
         No node_return = this.fim;
         this.fim = this.fim.getAnt();
         this.tam--;
         
-        return node_return;
+        return (E) node_return;
     }
 
     @Override
-    public Object busca( Object item ) {
+    public boolean busca( E item ) {
         
         No aux = this.fim;
         while ( aux.getAnt() != null ) { //Percorrendo do fim para o inicio
             
             if ( aux.getElemento() == item ) {
-                return aux.getElemento();
-                
-            } else {
-                aux = aux.getAnt();
+                return true;
             }
+                
+            aux = aux.getAnt();
         }
-        return ( "Objeto não existe" );
+        return false;
     }
 
     @Override
-    public int size() {
+    public int tamanho() {
         
         return this.tam;
     }
@@ -140,6 +191,20 @@ public class Lde implements ILde{ //Somentes os métodos foram herdados
     public boolean isEmpyt() {
         
         return this.tam == 0;
+    }
+    
+    @Override
+    public void print() { //constante | Método recursivo
+        
+	this.imprime(this.inicio);
+	}
+	
+    private void imprime(No n) { //constante
+        
+        System.out.println(n.getElemento());
+        if (n.getProx() != null) {
+            imprime(n.getProx());
+        }
     }
 
     public No getInicio() {
@@ -157,4 +222,6 @@ public class Lde implements ILde{ //Somentes os métodos foram herdados
     public void setFim(No fim) {
         this.fim = fim;
     }
+
+    
 }
