@@ -97,3 +97,27 @@ public class File {
 }
 
 //Runtime.getRuntime().exec( "C:/Users/Administrador/Desktop/exerc2.exe" ); //Caminho absoluto
+
+/**
+public void ord( No aux ) {
+		
+		while ( aux.getNext() != null ) {
+			
+			if ( (int)aux.getElement < (int)aux.getNext().getElement() ) {
+				
+				No node.setElement( aux.getElement() );
+				aux.setElement( aux.getNext().getElement() );
+				aux.getNext().setElement( node.getElement() );
+			}
+		}
+		/**
+		 * Se n > n+1 até lista.size();
+		 *   list ord;
+		 *  
+		 *  Se não retorna false -> Recursivo Ord;
+		
+		this.ord( this.inicio ); //Recursivo Ord; -> Else
+		
+
+	}
+*/
