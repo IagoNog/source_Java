@@ -15,6 +15,6 @@ public class Main {
         
         TxtInList test = new TxtInList();
         
-        test.reciveArq( "C:/Users/Administrador/Documents/NetBeansProjects/ED/src/arq/entrada.txt" );
+        test.reciveArq( "C:/Users/Administrador/Documents/NetBeansProjects/ED/src/arq/entrada.txt" ); //caminho absoluto do arquivo de entrada
     }
 }
