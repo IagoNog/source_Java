@@ -92,43 +92,6 @@ public class Lde<E> implements ILde<E> {
         }
     }
     
-    public void ordenaLista( No aux ) {
-        
-        boolean x = false;
-                
-        while ( aux.getProx() != null ) {
-            
-            if ( (int) aux.getElemento() < (int) aux.getProx().getElemento() ) {
-                No node = aux;
-                aux.setElemento( aux.getProx().getElemento() );
-                aux.getProx().setElemento( node.getElemento() );
-            } 
-            aux = aux.getProx();
-        }
-        
-        while ( aux.getProx() != null ) {
-            if ( (int)aux.getElemento() > (int)aux.getProx().getElemento() ) {
-                x = confere( 1 );
-            }
-        }
-        
-        if ( !x ) {
-            this.ordenaLista( this.inicio );
-        }
-        
-    }
-    
-    private boolean confere( int n ) {
-        
-        int cont = 0;
-        cont += n;
-        
-        if ( cont == this.tam ) {
-            return true;
-        }
-        return false;
-    }
-
     @Override
     public E remove( int pos ) {
         
@@ -165,6 +128,39 @@ public class Lde<E> implements ILde<E> {
         
         return (E) node_return;
     }
+    
+    @Override
+    public void swap() {
+        
+        int node;
+    	
+        for ( int i=0 ; i < this.tam ; i++ ) {
+            for ( int j=0 ; j < ( this.tam - 1 ) ; j++ ) {
+    			
+                if ( ( int )posicao( j ).getElemento() > ( int )posicao( j+1 ).getElemento() ) {
+    				
+                    node = ( Integer )posicao( j ).getElemento();
+                    posicao( j ).setElemento(posicao( j+1 ).getElemento());
+                    posicao( j+1 ).setElemento( node );
+                }
+            }
+        }
+    }
+    
+    private No posicao( int pos ) {
+    	
+        No aux = this.inicio;
+    	
+        if ( pos < this.tam ) {
+    		
+            for ( int i=0 ; i < pos ; i++ ) {
+
+                aux = aux.getProx();
+            }
+        }
+    	
+        return aux;
+    }
 
     @Override
     public boolean busca( E item ) {
@@ -179,39 +175,6 @@ public class Lde<E> implements ILde<E> {
             aux = aux.getAnt();
         }
         return false;
-    }
-
-public void swap() {
-    	
-    	int node;
-    	
-    	for ( int i=0 ; i < this.tam ; i++ ) {
-    		for ( int j=i ; j < ( this.tam - 1 ) ; j++ ) {
-    			
-    			if ( (Integer)posicao(j).getElemento() > (Integer)posicao(j+1).getElemento() ) {
-    				
-    				node = (Integer)posicao(j).getElemento();
-    				posicao(j).setElemento(posicao(j+1).getElemento());
-    				posicao(j+1).setElemento(node);
-    			}
-    			
-    		}
-    	}
-    }
-    
-    private No posicao( int pos ) {
-    	
-    	No aux = this.inicio;
-    	
-    	if ( pos < this.tam ) {
-    		
-	    	for ( int i=0 ; i < pos ; i++ ) {
-	    		
-	    		aux = aux.getProx();
-	    	}
-    	}
-    	
-    	return aux;
     }
 
     @Override
@@ -232,7 +195,7 @@ public void swap() {
 	this.imprime(this.inicio);
 	}
 	
-    private void imprime(No n) { //constante
+    private void imprime( No n ) { //constante
         
         System.out.println(n.getElemento());
         if (n.getProx() != null) {
