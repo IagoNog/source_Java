@@ -181,6 +181,39 @@ public class Lde<E> implements ILde<E> {
         return false;
     }
 
+public void swap() {
+    	
+    	int node;
+    	
+    	for ( int i=0 ; i < this.tam ; i++ ) {
+    		for ( int j=i ; j < ( this.tam - 1 ) ; j++ ) {
+    			
+    			if ( (Integer)posicao(j).getElemento() > (Integer)posicao(j+1).getElemento() ) {
+    				
+    				node = (Integer)posicao(j).getElemento();
+    				posicao(j).setElemento(posicao(j+1).getElemento());
+    				posicao(j+1).setElemento(node);
+    			}
+    			
+    		}
+    	}
+    }
+    
+    private No posicao( int pos ) {
+    	
+    	No aux = this.inicio;
+    	
+    	if ( pos < this.tam ) {
+    		
+	    	for ( int i=0 ; i < pos ; i++ ) {
+	    		
+	    		aux = aux.getProx();
+	    	}
+    	}
+    	
+    	return aux;
+    }
+
     @Override
     public int tamanho() {
         
