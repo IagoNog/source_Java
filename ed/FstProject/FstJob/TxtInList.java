@@ -53,6 +53,7 @@ public class TxtInList {
         try {
             
             while ( ( actLine = readFile.readLine() ) != null ) { //Percorre toto o arquivo .txt
+                
                 this.addToList( actLine );
             }
             
@@ -71,8 +72,9 @@ public class TxtInList {
         caracter = actLine.split( SPACE ); //Armazena somente os numeros no array
         number = converter( caracter );
                 
-        ord.ordenation( number ); //Ordena o array
+        //ord.ordenation( number ); //Ordena o array
         this.list.add( number ); //Adiciona a sequencia de numeros a lista encadeada
+        this.list.swap();
         this.bigList.addFim( list ); //adiciona a lista na bigList, uma lista de listas
 
     }
@@ -101,9 +103,9 @@ public class TxtInList {
                 
                 writeFile.print( aux.getElemento() + " " );
                 
-                if ( ( int )aux.getElemento() > ( int )aux.getProx().getElemento() ) {
-                    writeFile.println();
-                }
+                //if ( ( int )aux.getElemento() > ( int )aux.getProx().getElemento() ) {
+                    //writeFile.println();
+                //}
                 
                 aux = aux.getProx();
             }
