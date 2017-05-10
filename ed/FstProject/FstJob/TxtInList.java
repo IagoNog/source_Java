@@ -9,7 +9,6 @@ import java.io.PrintWriter;
 /** Pacotes de estruturas desenvolvido em sala */
 import lde.Lde;
 import lde.No;
-import ordenacaoAlg.BubbleSort;
 
 /**
  * @author Iago Nogueira <iagonogueira227@gmail.com>
@@ -19,7 +18,6 @@ import ordenacaoAlg.BubbleSort;
  */
 public class TxtInList {
 
-    private Lde<Integer> list = new Lde();
     private Lde<Lde> bigList = new Lde();    
     
     public TxtInList() {
@@ -33,10 +31,10 @@ public class TxtInList {
             FileReader file = new FileReader( nameFile );
             BufferedReader readFile = new BufferedReader( file );
             
-            this.countLineFile( readFile );
-            this.exitTxt( this.bigList, "saida.txt" );
+            this.addToList( readFile );
             
             readFile.close();
+            file.close();
             
         } catch ( IOException ex ) {
             System.err.println( "Erro no metodo 'reciveArq()' Não foi possivel abrir o arquivo " + nameFile + " - " + ex );
@@ -44,85 +42,56 @@ public class TxtInList {
         
         System.out.println( "Arquivo construido" );
         
-    }
-    
-    public void countLineFile( BufferedReader readFile ) {
+    } 
         
+    public void addToList( BufferedReader readFile) { //Adiciona a sequencia na lista
+        
+        String c[], SPACE = " ";
         String actLine;
         
         try {
-            
-            while ( ( actLine = readFile.readLine() ) != null ) { //Percorre toto o arquivo .txt
+            while ( (actLine = readFile.readLine()) != null ) {
                 
-                this.addToList( actLine );
+                c = actLine.split( SPACE );
+                Lde<Integer> list = new Lde<>();
+                
+                for ( String c1 : c ) {
+                    
+                    list.addFim( Integer.parseInt( c1 ) ); //Adiciona a sequencia de numeros a lista encadeada
+                    
+                }
+                this.exitTxt( list );
             }
             
-        } catch ( IOException ex ) {
-            System.err.println( "Erro no metodo 'countLineFile()' Não foi possivel abrir o arquivo" + " - " + ex );
-        }
-        
-    }
-        
-    public void addToList( String actLine ) { //Adiciona a sequencia na lista
-        
-        String caracter[], SPACE = " ";
-        Integer number[];
-        BubbleSort ord = new BubbleSort();
-        
-        caracter = actLine.split( SPACE ); //Armazena somente os numeros no array
-        number = converter( caracter );
-                
-        //ord.ordenation( number ); //Ordena o array
-        this.list.add( number ); //Adiciona a sequencia de numeros a lista encadeada
-        this.list.swap();
-        this.bigList.addFim( list ); //adiciona a lista na bigList, uma lista de listas
+        } catch (IOException ex) {
+            System.err.println( "Erro no metodo 'addToList()" + ex );
+        } 
 
     }
-    
-    public static Integer[] converter( String array[] ) { //Converte de String para Integer
+  
+    public void exitTxt( Lde list ) { //colocar a lista em um arq .txt
         
-        Integer arrayAux[] = new Integer[array.length];
-                    
-        for ( int i=0 ; i < array.length ; i++ ) {
-            arrayAux[i] = Integer.parseInt( array[i] );
-        }
-        
-        return arrayAux;    
-    }
-    
-    public void exitTxt( Lde list, String nameFile ) { //colocar a lista em um arq .txt
-        
-        No aux = this.list.getInicio();
+        list.bubbleSort(); //ordenação da lista
+        No aux = list.getInicio();
         
         try {
                         
-            FileWriter file = new FileWriter( nameFile );
+            FileWriter file = new FileWriter( "saida.txt" );
             PrintWriter writeFile = new PrintWriter( file );
             
-            while ( aux.getProx() != null ) {
+            for ( int i=0 ; i < list.tamanho() ; i++ ) {
                 
-                writeFile.print( aux.getElemento() + " " );
-                
-                //if ( ( int )aux.getElemento() > ( int )aux.getProx().getElemento() ) {
-                    //writeFile.println();
-                //}
-                
+                writeFile.print(aux.getElemento() + " " );
                 aux = aux.getProx();
             }
+            
             writeFile.close();
+            file.close();
             
         } catch ( IOException ex ) {
-            System.err.println( "Erro no metodo 'exitTxt()' Não foi possivel abrir o arquivo " + nameFile + " - " + ex );
+            System.err.println( "Erro no metodo 'exitTxt()' Não foi possivel abrir o arquivo " + " - " + ex );
         }
             
-    }
-
-    public Lde<Integer> getList() {
-        return list;
-    }
-
-    public void setList(Lde<Integer> list) {
-        this.list = list;
     }
 
     public Lde<Lde> getBigList() {
